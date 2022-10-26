@@ -44,7 +44,7 @@
             line-height: 2em;
             font-size: 3em;
             text-align: center;
-            background-color:crimson;
+            background-color: crimson;
             float: right;
         }
 
@@ -86,9 +86,9 @@
         }
         return false
     }
-    function 查看答案(答案) {
+    function 查看答案(检查成语, 答案) {
         for (const 成语 of 成语大全) {
-            if (比较(duifang.innerText, 成语)) {
+            if (比较(检查成语, 成语)) {
                 答案.push(成语)
             }
         }
@@ -97,8 +97,8 @@
     var zhuangtai = true
     var daanhtml = daan.innerHTML
     daan.addEventListener("click", () => {
-        if (zhuangtai && 查看答案([]) != "") {
-            daan.innerHTML = 查看答案([])
+        if (zhuangtai && 查看答案(duifang.innerText, []) != "") {
+            daan.innerHTML = 查看答案(duifang.innerText, [])
             zhuangtai = false
         } else {
             daan.innerHTML = daanhtml
@@ -113,6 +113,9 @@
                 //与成语大全里的成语比较
                 if (状态 && 比较(shuru.value, 成语)) {
                     //如果处于提问状态且提问的语句对方可以答上
+                    if (查看答案(成语, []) == "") {
+                        continue
+                    }
                     wode.innerText = shuru.value
                     duifang.innerText = 成语
                     状态 = false
