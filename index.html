@@ -116,11 +116,11 @@
                     wode.innerText = shuru.value
                     duifang.innerText = 成语
                     状态 = false
+                    shuru.value = ""
                     break
                 } else if (!状态 && 比较(duifang.innerText, shuru.value)) {
                     //如果处于回答状态且回答正确
                     状态 = true
-                    break
                 }
             }
         }
