@@ -14,19 +14,22 @@
         body {
             height: 100%;
         }
-        #pipeimoshi{
+
+        #pipeimoshi {
             color: #66ccff;
         }
+
         #fanyiqu {
-            width: 100%;
+            width: auto;
             text-align: center;
             color: white;
+            margin: 1em 0;
             background-color: black;
             border-radius: 0.5em;
         }
 
         #danciqu {
-            height: 70%;
+            height: 50%;
             width: 100%;
             display: flex;
             gap: 2px;
@@ -82,7 +85,6 @@
 </body>
 <script type="module">
     import data from './chengyu.json' assert {type: 'json'}
-    console.log(data[0]);
     const shurukuang = document.getElementById("shurukuang")
     const pipeimoshi = document.getElementById("pipeimoshi")
     const fanyiqu = document.getElementById("fanyiqu")
@@ -137,18 +139,35 @@
     fanyiqu.addEventListener("click", (e) => {
         try { fanyiqu.removeChild(e.target) } catch (v) { fanyiqu.removeChild(e.target.parentNode) }
     })
-    pipeimoshi.dataset.moshi = "wenzi"
-    pipeimoshi.innerText = "当前模式-文字匹配"
     pipeimoshi.addEventListener("click", () => {
         if (pipeimoshi.dataset.moshi == "wenzi") {
             pipeimoshi.dataset.moshi = "zimu"
             pipeimoshi.innerText = "当前模式-首字母匹配"
+            document.cookie = "pipeimoshi=zimu; expires=Thu, 18 Dec 2200 12:00:00 GMT; path=/";
         } else {
             pipeimoshi.dataset.moshi = "wenzi"
             pipeimoshi.innerText = "当前模式-文字匹配"
-            console.log(6);
+            document.cookie = "pipeimoshi=wenzi; expires=Thu, 18 Dec 2200 12:00:00 GMT; path=/";
         }
     })
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+    pipeimoshi.dataset.moshi = getCookie("pipeimoshi")
+    if (pipeimoshi.dataset.moshi == "wenzi") {
+        pipeimoshi.innerText = "当前模式-文字匹配"
+    } else if (pipeimoshi.dataset.moshi == "zimu") {
+        pipeimoshi.innerText = "当前模式-首字母匹配"
+    } else {
+        pipeimoshi.dataset.moshi = "wenzi"
+        pipeimoshi.innerText = "当前模式-文字匹配"
+    }
 </script>
 
 </html>
